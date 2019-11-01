@@ -14,12 +14,10 @@ const TestExample: React.FC = () => {
     const [test1, setTest1] = useState<{msg: string} | null>(null);
     const [test2, setTest2] = useState<{msg: string} | null>(null);
     useEffect(() => {
-        TestAdapter.getTest1().then(setTest1);
-    }, [test1]);
-
-    useEffect(() => {
-        TestAdapter.getTest2().then(setTest2);
-    }, [test2]);
+        TestAdapter.getTest1().then(setTest1).then(() => {
+            TestAdapter.getTest2().then(setTest2)
+        });
+    }, []);
 
     return (
         <>

@@ -14,4 +14,13 @@ module.exports = {
     transform: {
         '^.+\\.tsx?$': 'ts-jest', // just jest got by fine using this line
     },
+    automock: false,
+    setupFiles: [
+        './setupJest.ts',
+    ],
+    globals: {
+        'ts-jest': {
+            diagnostics: false,
+        },
+    },
 };

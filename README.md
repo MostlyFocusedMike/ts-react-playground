@@ -72,3 +72,8 @@ That's the pattern you can use to get both default and regular exports
 ## typescript cheat sheet
 https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
 
+
+## warnings about act()
+Really not 100% sure why this goes away, but use an
+        const { getByText, debug, findByText} = setup();
+        await waitForElement(() => getByText('test1')); // waitForElement seems to take care of this problem

@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "start": "docker-compose up -d",
-    "test": "npx jest --watchAll",
+    "test": "npx jest --config='./jest.config.js' --watchAll ",
     "build": "docker-compose exec playground npx webpack",
     "watch": "docker-compose exec playground npx webpack --watch",
     "in:play": "docker-compose exec playground bash",
@@ -35,6 +35,7 @@
     "haute-couture": "3.x.x",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
+    "jest-fetch-mock": "^2.1.2",
     "joi": "^14.3.1",
     "knex": "^0.19.5",
     "node-fetch": "^2.6.0",
