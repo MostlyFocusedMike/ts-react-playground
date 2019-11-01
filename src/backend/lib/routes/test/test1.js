@@ -1,9 +1,9 @@
 module.exports = {
     method: 'GET',
-    path: '/test',
+    path: '/test1',
     options: {
         handler: async (request, h) => {
-            return { msg: 'ok' };
+            return { msg: 'test1 is first' };
         },
     },
 };
