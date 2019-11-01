@@ -2,6 +2,7 @@ import React from 'react'
 import { render, fireEvent, cleanup, getByText, findByText, waitForElement } from '@testing-library/react';
 import TestExample from '.';
 import { APIRequest } from './apiRequest'
+const fetchMock = require('fetch-mock');
 
 // import { act } from 'react-dom/test-utils';
 
@@ -27,8 +28,8 @@ describe('Fetch mock tests', () => {
     afterEach(cleanup)
 
     it('runs', async () => {
-        fetchMock.mockResponseOnce(JSON.stringify({msg: 'test1'}));
-        fetchMock.mockResponseOnce(JSON.stringify({msg: 'test2'}));
+        fetchMock.mock('/test1', {msg: 'test1'});
+        fetchMock.mock('/test2', {msg: 'test2'});
         const { getByText, debug, findByText} = setup();
         await waitForElement(() => getByText('test1'));
         await waitForElement(() => getByText('test2'));
