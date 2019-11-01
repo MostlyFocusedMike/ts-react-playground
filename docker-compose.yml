@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  # run docker-compose down if you change any of the PG environment variables
+  playground:
+    build: ./ # location of Dockerfile
+    command: nodemon /usr/app/src/backend/server
+    depends_on:
+      - "playground_db"
+    ports:
+      # your port:docker internal port
+      - "8101:8000"
+
+    # these are the links from your local machine:docker files
+    # so that you can access them without restarting docker
+    volumes:
+      - ./public/:/usr/app/public/
+      - ./src/:/usr/app/src/
+      - ./package.json:/usr/app/package.json
+      - ./tsconfig.json:/usr/app/tsconfig.json
+      - ./webpack.config.js:/usr/app/webpack.config.js
+      - ./postcss.config.js:/usr/app/postcss.config.js
+
+    # environment variables needed for knex
+    environment:
+      DEV_DB_HOST: playground_db
+      DEV_DB_PORT: 5432
+      DEV_DB_USER: root
+      DEV_DB_PSWD: root
+      DEV_DB_NAME: boiler_room
+
+    container_name: core_container
+
+  playground_db:
+    image: postgres:9.6-alpine
+    ports:
+      - '5431:5432'
+    environment:
+      # these are PG builtin env vars
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: boiler_room
+
+    container_name: db_container

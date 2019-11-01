@@ -1,0 +1,17 @@
+.article-card {
+    margin: 1rem;
+    border: 0.1rem solid #000;
+    width: 20rem;
+    position: relative;
+    padding: 11rem 1rem 1rem;
+    h2, h3 {
+        text-align: right;
+    }
+    img {
+        width: 20rem;
+        height: 11.5rem;
+        position: absolute;
+        top: -0.75rem;
+        left: -0.75rem;
+    }
+}
