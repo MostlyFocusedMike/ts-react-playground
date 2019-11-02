@@ -1,0 +1,36 @@
+import mockAdapters from './mockAdapters';
+const fetchMock = require('fetch-mock');
+
+
+const defaultOpts = {
+    status: 200,
+    method: 'GET',
+};
+
+const initFetchMachine = () => {
+    fetchMock.config.overwriteRoutes = true;
+}
+
+export const setDefaultRoutes = () => {
+    initFetchMachine();
+    Object.values(mockAdapters).forEach(mockAdapter => {
+        Object.values(mockAdapter).forEach((properties) => {
+            const { route, response, method, status } = {...defaultOpts, ...properties}
+            fetchMock.mock(route, {body: response, status}, { method }); // success
+            // fetchMock.mock(route, new TypeError('Failed to fetch')); // error? doesn't seem to work
+        })
+    })
+};
+
+export const overrideRoute = (
+    mockAdapter: string,
+    adapterFunction: string,
+    newResponse: any,
+    status = defaultOpts.status,
+    method = defaultOpts.method,
+) => {
+    const route = mockAdapters[mockAdapter][adapterFunction].route;
+    fetchMock.mock(route, {body: newResponse, status}, { method });
+}
+
+export const resetFetch = () => fetchMock.reset();
