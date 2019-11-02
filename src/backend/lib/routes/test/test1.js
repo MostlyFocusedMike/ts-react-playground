@@ -1,9 +1,9 @@
 module.exports = {
     method: 'GET',
-    path: '/test1',
+    path: '/test/{id}',
     options: {
         handler: async (request, h) => {
-            return { msg: 'test1 is first' };
+            return { msg: `${request.params.id}.${parseInt(request.params.id, 10) * 2} here` };
         },
     },
 };

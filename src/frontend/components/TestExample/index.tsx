@@ -3,20 +3,32 @@ import './styles.css';
 
 const TestAdapter = {
     getTest1: () => {
-        return fetch('/test1').then(r=>r.json())
+        return fetch('/test/1').then(r=>{
+            if (r.ok) return r.json()
+            console.log('r1', r);
+            throw new TypeError('Failed to fetch')
+        })
     },
     getTest2: () => {
-        return fetch('/test2').then(r=>r.json())
-    }
+        return fetch('/test/2').then(r=>{
+            if (r.ok) return r.json()
+            throw new TypeError('Failed to fetch')
+        })
+    },
 }
-
+console.log('hi')
 const TestExample: React.FC = () => {
     const [test1, setTest1] = useState<{msg: string} | null>(null);
     const [test2, setTest2] = useState<{msg: string} | null>(null);
     useEffect(() => {
-        TestAdapter.getTest1().then(setTest1).then(() => {
-            TestAdapter.getTest2().then(setTest2)
-        });
+        TestAdapter.getTest1()
+            .then((res) => {
+                setTest1(res);
+            })
+            .then(() => {
+                TestAdapter.getTest2().then(setTest2)
+            })
+            .catch(console.log);
     }, []);
 
     return (
