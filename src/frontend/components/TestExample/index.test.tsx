@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, fireEvent, cleanup, getByText, findByText, waitForElement } from '@testing-library/react';
+import { render, fireEvent, cleanup, getByText, findByText, waitForElement, act } from '@testing-library/react';
 import TestExample from '.';
-import {setDefaultRoutes, overrideRoute, resetFetch} from './fetchMachine';
+import {setDefaultRoutes, overrideRoute, resetFetch, rejectRoute} from './fetchMachine';
 
 describe('Fetch mock tests', () => {
     beforeAll(setDefaultRoutes)
@@ -32,4 +32,17 @@ describe('Fetch mock tests', () => {
         expect(getByText('Hello test')).toBeTruthy();
         debug();
     });
+
+
+    it.only('fails', async () => {
+        rejectRoute('TestAdapter', 'getOneID2');
+
+        try {
+            const { getByText, debug } = setup();
+            await waitForElement(() => getByText(/test 1/));
+        } catch (e) {
+            console.log('err', e);
+        }
+    });
+
 });

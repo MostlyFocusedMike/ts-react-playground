@@ -33,4 +33,12 @@ export const overrideRoute = (
     fetchMock.mock(route, {body: newResponse, status}, { method });
 }
 
+export const rejectRoute = (
+    mockAdapter: string,
+    adapterFunction: string,
+) => {
+    const route = mockAdapters[mockAdapter][adapterFunction].route;
+    fetchMock.mock(route, {throws: new TypeError('failed to fetch')});
+}
+
 export const resetFetch = () => fetchMock.reset();

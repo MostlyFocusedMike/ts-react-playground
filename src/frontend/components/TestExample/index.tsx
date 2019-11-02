@@ -10,10 +10,15 @@ const TestAdapter = {
         })
     },
     getTest2: () => {
-        return fetch('/test/2').then(r=>{
-            if (r.ok) return r.json()
-            throw new TypeError('Failed to fetch')
-        })
+        return fetch('/test/2')
+            .then(r=>{
+                console.log(r);
+                if (r.ok) return r.json()
+            })
+            .catch((e) => {
+                console.log('shit', e);
+                return {msg: e.message}
+            })
     },
 }
 console.log('hi')
@@ -26,7 +31,10 @@ const TestExample: React.FC = () => {
                 setTest1(res);
             })
             .then(() => {
-                TestAdapter.getTest2().then(setTest2)
+                TestAdapter.getTest2().then((r) => {
+                    console.log('r error:', r.ok)
+                    setTest2
+                })
             })
             .catch(console.log);
     }, []);
