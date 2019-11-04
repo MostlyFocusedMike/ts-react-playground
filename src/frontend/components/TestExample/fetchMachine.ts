@@ -17,7 +17,6 @@ export const setDefaultRoutes = () => {
         Object.values(mockAdapter).forEach((properties) => {
             const { route, response, method, status } = {...defaultOpts, ...properties}
             fetchMock.mock(route, {body: response, status}, { method }); // success
-            // fetchMock.mock(route, new TypeError('Failed to fetch')); // error? doesn't seem to work
         })
     })
 };
@@ -41,4 +40,4 @@ export const rejectRoute = (
     fetchMock.mock(route, {throws: new TypeError('failed to fetch')});
 }
 
-export const resetFetch = () => fetchMock.reset();
+export const resetFetch = () => fetchMock.resetBehavior();
