@@ -39,7 +39,7 @@
     "jest-fetch-mock": "^2.1.2",
     "joi": "^14.3.1",
     "knex": "^0.19.5",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "objection": "^1.6.9",
     "objection-db-errors": "^1.1.1",
     "pg": "^7.12.1",
